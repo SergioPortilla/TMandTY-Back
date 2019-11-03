@@ -1,0 +1,17 @@
+name: tmandtyback
+description: An empty Aqueduct application.
+version: 0.0.1
+author: Sergio Portilla <sergioportilla98@gmail.com>
+
+environment:
+  sdk: ">=2.5.0 <3.0.0"
+
+dependencies:
+  aqueduct: ^3.2.1
+  mysql1: ^0.17.0+1
+  safe_config: ^2.0.2
+
+dev_dependencies:
+  pedantic: ^1.8.0
+  test: ^1.0.0
+  aqueduct_test: ^1.0.0

@@ -1,0 +1,12 @@
+database:
+  db1:
+    databaseName: prueba
+    host: localhost
+    port: 3306
+    username: root
+    password: root
+
+  db2:
+    databaseName: otherstuff
+    host: somewhereoutthere.com
+    port: 5432
