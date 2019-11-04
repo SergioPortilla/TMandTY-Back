@@ -37,7 +37,7 @@ class TmandtybackChannel extends ApplicationChannel {
         ..contentType = ContentType.TEXT;
     });
 
-    router.route('/users').link(() => UsersController());
+    router.route('/users/[:Login]').link(() => UsersController());
 
     return router;
   }
