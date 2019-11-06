@@ -12,7 +12,6 @@ class UsersController extends ResourceController {
     final Map<String, dynamic> body = await request.body.decode();
     print(login);
     final registroEncontrado = await UserDao().searchByLogin(login);
-    print(registroEncontrado);
     return Response.ok(registroEncontrado);
   }
 

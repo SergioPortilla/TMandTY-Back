@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:mysql1/mysql1.dart';
 import 'package:tmandtyback/conection/databaseAccess.dart';
 import 'package:tmandtyback/model/user.dart';
@@ -31,10 +33,7 @@ class UserDao {
 
   Future<String> searchByLogin(String login) async {
     final conn = await MySqlConnection.connect(DatabaseAccess());
-    final result = conn.query('select * from usuario where Login = ?', [login]);
-    await result.catchError((e) {
-       print("Error al crear usuario ${e.toString()}");
-    });
+    var result = await conn.query('select * from usuario where Login = ?', [login]);
     await conn.close();
     return '${result}';
   }
