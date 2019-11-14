@@ -21,7 +21,7 @@ class Payment {
   factory Payment.fromJson(var json) => Payment(
     id:             json["IdPago"] as int,
     idSubscription: Subscription.fromJson(json["IdSuscripcion"]),
-    idUser:         User.fromJson(json["IdUsuario"]),
+//    idUser:         User.fromJson(json["IdUsuario"]),
     idPaymentMethod:PaymentMethod.fromJson(json["IdFormaPago"]),
     amount:         json["Monto"] as int
   );

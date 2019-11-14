@@ -24,8 +24,8 @@ class Chat{
   String toString() => json.encode(toJson());
 
   factory Chat.fromJson(var json) => Chat(
-    idUser:       User.fromJson(json["IdUsuario"]),
-    idinstructor: User.fromJson(json["IdDocente"]),
+//    idUser:       User.fromJson(json["IdUsuario"]),
+//    idinstructor: User.fromJson(json["IdDocente"]),
     idIdiom:      Idiom.fromJson(json["IdIdioma"]),
     chatType:     json["TipoChat"] as String,
     count:        json["ContadorChat"] as int,

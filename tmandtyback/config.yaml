@@ -7,6 +7,8 @@ database:
     password: root
 
   db2:
-    databaseName: otherstuff
-    host: somewhereoutthere.com
+    databaseName: TMandTY
+    host: localhost
     port: 5432
+    username: sportilla
+    password: root

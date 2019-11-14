@@ -23,7 +23,7 @@ class Subscription {
     id:         json["Id"] as int,
     dateBegin:  json["FechaInicio"] as DateTime,
     dateEnds:   json["FechaFin"] as DateTime,
-    idUser:     User.fromJson(json["IdUsuario"]),
+//    idUser:     User.fromJson(json["IdUsuario"]),
     numberDays: json["cantidadDias"] as int
   );
 

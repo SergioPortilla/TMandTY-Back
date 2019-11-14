@@ -1,44 +1,44 @@
+import 'package:tmandtyback/Properties/appConfiguration.dart';
 import 'package:tmandtyback/controller/users_controller.dart';
 
+import 'dart:io';
 import 'tmandtyback.dart';
 
-/// This type initializes an application.
-///
-/// Override methods in this class to set up routes and initialize services like
-/// database connections. See http://aqueduct.io/docs/http/channel/.
 class TmandtybackChannel extends ApplicationChannel {
-  /// Initialize services in this method.
-  ///
-  /// Implement this method to initialize services, read values from [options]
-  /// and any other initialization required before constructing [entryPoint].
-  ///
-  /// This method is invoked prior to [entryPoint] being accessed.
+
+  ManagedContext context;
+
   @override
   Future prepare() async {
     logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
-  }
+//
+//    final config = AppConfiguration();
+//    final database = config.database["db2"];
 
-  /// Construct the request channel.
-  ///
-  /// Return an instance of some [Controller] that will be the initial receiver
-  /// of all [Request]s.
-  ///
-  /// This method is invoked after [prepare].
+    final dataModel = ManagedDataModel.fromCurrentMirrorSystem();
+    final store = PostgreSQLPersistentStore.fromConnectionInfo(
+        'sportilla',
+        'root',
+        'localhost',
+        5432,
+        'TMandTY'
+    );
+    context = ManagedContext(dataModel, store);
+  }
+//  @override
+//  Future prepare() async {
+//    logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+//  }
+
   @override
-  Controller get entryPoint {
-    final router = Router();
+  Controller get entryPoint => Router()
+    ..route('/users/[:Login]').link(() => UsersController(context))
+    ..route('/chats/').link(() => UsersController(context));
 
-    // Prefer to use `link` instead of `linkFunction`.
-    // See: https://aqueduct.io/docs/http/request_controller/
-    router
-        .route('/example')
-        .linkFunction((request) async {
-      return new Response.ok('Hello world')
-        ..contentType = ContentType.TEXT;
-    });
-
-    router.route('/users/[:Login]').link(() => UsersController());
-
-    return router;
-  }
+//    router
+//        .route('/example')
+//        .linkFunction((request) async {
+//      return new Response.ok('Hallo world')
+//        ..contentType = ContentType.TEXT;
+//    };
 }
