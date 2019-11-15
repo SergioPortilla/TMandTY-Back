@@ -11,17 +11,17 @@ class TmandtybackChannel extends ApplicationChannel {
   @override
   Future prepare() async {
     logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
-//
-//    final config = AppConfiguration();
-//    final database = config.database["db2"];
+
+    final config = AppConfiguration();
+    final database = config.database["dbparasumerce"];
 
     final dataModel = ManagedDataModel.fromCurrentMirrorSystem();
     final store = PostgreSQLPersistentStore.fromConnectionInfo(
-        'sportilla',
-        'root',
-        'localhost',
-        5432,
-        'TMandTY'
+        database.username,
+        database.password,
+        database.host,
+        database.port,
+        database.databaseName
     );
     context = ManagedContext(dataModel, store);
   }

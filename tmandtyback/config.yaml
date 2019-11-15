@@ -12,3 +12,10 @@ database:
     port: 5432
     username: sportilla
     password: root
+
+  dbparasumerce:
+    databaseName: TMandTY
+    host: localhost
+    port: 5432
+    username: suuser
+    password: supassword
