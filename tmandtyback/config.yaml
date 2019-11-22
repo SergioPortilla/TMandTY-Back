@@ -7,9 +7,9 @@ database:
     password: root
 
   db2:
-    databaseName: TMandTY
+    databaseName: tmandty
     host: localhost
-    port: 5432
+    port: 5433
     username: sportilla
     password: root
 

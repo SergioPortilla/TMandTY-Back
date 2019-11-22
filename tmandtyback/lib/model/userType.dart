@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tmandtyback/model/user.dart';
 import 'package:tmandtyback/tmandtyback.dart';
 
 //UserType userTypeFromJson(String jsonUserType) => UserType.fromJson(json.decode(jsonUserType));
@@ -44,6 +45,8 @@ class _UserType extends Serializable {
 
   @Column(unique: true, nullable: false )
   String nameTypeUser;
+
+  User userType;
 
   @override
   Map<String, dynamic> asMap() => {

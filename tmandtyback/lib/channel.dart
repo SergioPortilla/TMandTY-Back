@@ -13,7 +13,7 @@ class TmandtybackChannel extends ApplicationChannel {
     logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
 
     final config = AppConfiguration();
-    final database = config.database["dbparasumerce"];
+    final database = config.database["db2"];
 
     final dataModel = ManagedDataModel.fromCurrentMirrorSystem();
     final store = PostgreSQLPersistentStore.fromConnectionInfo(

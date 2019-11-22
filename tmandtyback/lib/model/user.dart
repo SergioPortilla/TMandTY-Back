@@ -56,13 +56,13 @@ class User extends ManagedObject<_User> implements _User {
 
 @Table(name: "Usuario")
 class _User extends Serializable {
-  @Column(primaryKey: true, indexed: true)
+  @Column(primaryKey: true, autoincrement: true, unique: true)
   int id;
 
   @Column(unique: true, nullable: false )
-  String user;
+  String userName;
 
-  @Column(defaultValue: 'password')
+  @Column()
   String password;
 
   @Column(nullable: false )
@@ -71,17 +71,16 @@ class _User extends Serializable {
   @Column(nullable: false )
   String fullName;
 
-  @Column(unique: true, nullable: false )
+  @Column(unique: true )
   String imageUrl;
 
-//  @Relate(#idTypeUsuer, isRequired: true, onDelete: DeleteRule.cascade)
-//  UserType userType;
-  String userType;
+  @Relate(#userType)
+  UserType userType;
 
   @override
   Map<String, dynamic> asMap() => {
     "id":         id,
-    "Login":      user,
+    "Login":      userName,
     "Contrasena": password,
     "Correo":     mail,
     "Nombre":     fullName,

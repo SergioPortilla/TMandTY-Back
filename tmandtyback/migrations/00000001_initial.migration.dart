@@ -4,8 +4,28 @@ import 'package:aqueduct/aqueduct.dart';
 class Migration1 extends Migration { 
   @override
   Future upgrade() async {
-   		database.createTable(SchemaTable("Usuario", [SchemaColumn("id", ManagedPropertyType.integer, isPrimaryKey: true, autoincrement: false, isIndexed: true, isNullable: false, isUnique: false),SchemaColumn("user", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true),SchemaColumn("password", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, defaultValue: "password", isIndexed: false, isNullable: false, isUnique: false),SchemaColumn("mail", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false),SchemaColumn("fullName", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false),SchemaColumn("imageUrl", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true),SchemaColumn("userType", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false)]));
-		database.createTable(SchemaTable("TipoUsuario", [SchemaColumn("idTypeUsuer", ManagedPropertyType.bigInteger, isPrimaryKey: true, autoincrement: true, isIndexed: false, isNullable: false, isUnique: false),SchemaColumn("nameTypeUser", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true)]));
+    database.createTable(
+      SchemaTable("Usuario",
+        [
+          SchemaColumn("id", ManagedPropertyType.integer, isPrimaryKey: true, autoincrement: true, isIndexed: false, isNullable: false, isUnique: true),
+          SchemaColumn("userName", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true),
+          SchemaColumn("password", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false),
+          SchemaColumn("mail", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false),
+          SchemaColumn("fullName", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: false),
+          SchemaColumn("imageUrl", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true)
+        ]
+      )
+    );
+		database.createTable(
+        SchemaTable("TipoUsuario",
+            [
+              SchemaColumn("idTypeUsuer", ManagedPropertyType.bigInteger, isPrimaryKey: true, autoincrement: true, isIndexed: false, isNullable: false, isUnique: false),
+              SchemaColumn("nameTypeUser", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true)
+            ]
+        )
+    );
+		database.addColumn("Usuario",
+        SchemaColumn.relationship("userType", ManagedPropertyType.bigInteger, relatedTableName: "TipoUsuario", relatedColumnName: "idTypeUsuer", rule: DeleteRule.nullify, isNullable: false, isUnique: true));
   }
   
   @override
@@ -13,19 +33,36 @@ class Migration1 extends Migration {
   
   @override
   Future seed() async {
-    final Map User = 
+    final List<Map> typeUsers = [
       {
-        "id": 121,
-        "Login": "weewwe",
-        "Contrasena": "Wss&wewe()",
-        "Correo": "we",
-        "Nombre": "niqewqcolas",
-        "UrlImage": "c:/app/imagenadmin2.jpg",
-        "TipoUsuario": "jjuuju"
-      };
-    
-    await database.store.execute('INSERT INTO _User () VALUES');
-    
+        "idTypeUsuer": 1,
+        "nameTypeUser": "Docente"
+      },
+      {
+        "idTypeUsuer": 2,
+        "nameTypeUser": "Estudiante"
+      }
+    ];
+    final Map Users =
+    {
+      "id": 121,
+      "userName": "weewwe",
+      "password": "Wss&wewe()",
+      "mail": "we",
+      "fullName": "niqewqcolas",
+      "imageUrl": "c:/app/imagenadmin2.jpg",
+      "TipoUsuario": 1
+    };
+    for (final typeUser in typeUsers) {
+      await database.store.execute('INSERT INTO TipoUsuario (idTypeUsuer, nameTypeUser) VALUES (@idTypeUsuer, @nameTypeUser)',
+          substitutionValues: {
+            'idTypeUsuer': typeUser['idTypeUsuer'],
+            'nameTypeUser': typeUser['nameTypeUser']
+          }
+      );
+    }
+//    await database.store.execute('INSERT INTO _User () VALUES');
+
   }
 }
     
