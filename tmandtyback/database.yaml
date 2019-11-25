@@ -1,0 +1,5 @@
+username: "sportilla"
+password: "root"
+host: "localhost"
+port: 5433
+databaseName: "tmandty"

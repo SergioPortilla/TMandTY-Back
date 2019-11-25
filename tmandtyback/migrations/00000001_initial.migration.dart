@@ -16,16 +16,17 @@ class Migration1 extends Migration {
         ]
       )
     );
-		database.createTable(
-        SchemaTable("TipoUsuario",
-            [
-              SchemaColumn("idTypeUsuer", ManagedPropertyType.bigInteger, isPrimaryKey: true, autoincrement: true, isIndexed: false, isNullable: false, isUnique: false),
-              SchemaColumn("nameTypeUser", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true)
-            ]
-        )
+    database.createTable(
+      SchemaTable("TipoUsuario",
+        [
+          SchemaColumn("idTypeUsuer", ManagedPropertyType.bigInteger, isPrimaryKey: true, autoincrement: true, isIndexed: false, isNullable: false, isUnique: false),
+          SchemaColumn("nameTypeUser", ManagedPropertyType.string, isPrimaryKey: false, autoincrement: false, isIndexed: false, isNullable: false, isUnique: true)
+        ]
+      )
     );
-		database.addColumn("Usuario",
-        SchemaColumn.relationship("userType", ManagedPropertyType.bigInteger, relatedTableName: "TipoUsuario", relatedColumnName: "idTypeUsuer", rule: DeleteRule.nullify, isNullable: false, isUnique: true));
+    database.addColumn("Usuario",
+      SchemaColumn.relationship("userType", ManagedPropertyType.bigInteger, relatedTableName: "TipoUsuario", relatedColumnName: "idTypeUsuer", rule: DeleteRule.nullify, isNullable: true, isUnique: true)
+    );
   }
   
   @override

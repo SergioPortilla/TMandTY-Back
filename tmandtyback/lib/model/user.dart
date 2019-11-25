@@ -1,47 +1,6 @@
-import 'dart:convert';
+import 'package:tmandtyback/model/chat.dart';
 import 'package:tmandtyback/model/userType.dart';
 import 'package:tmandtyback/tmandtyback.dart';
-
-//User userFromJson(String jsonUser) => User.fromJson(json.decode(jsonUser));
-//
-//@Table(name: "Usuario")
-//class User {
-//
-//  final int id;
-//  final String user;
-//  final String password;
-//  final String mail;
-//  final String fullName;
-//  final String imageUrl;
-//  final UserType userType;
-//
-//  //Constructor del Usuario
-//  User({this.id, this.user, this.password, this.mail, this.fullName, this.imageUrl, this.userType});
-//
-//  @override
-//  String toString() => json.encode(toJson());
-//
-//  factory User.fromJson(var json) => User(
-//    id:       json["id"] as int,
-//    user:     json["Login"] as String,
-//    password: json["Contrasena"] as String,
-//    mail:     json["Correo"] as String,
-//    fullName: json["Nombre"] as String,
-//    imageUrl: json["UrlImage"] as String,
-//    userType: UserType.fromJson(json["TipoUsuario"])
-//  );
-//
-//  Map<String, dynamic> toJson() => {
-//    "id":         id,
-//    "Login":      user,
-//    "Contrasena": password,
-//    "Correo":     mail,
-//    "Nombre":     fullName,
-//    "UrlImage":   imageUrl,
-//    "TipoUsuario":userType
-//  };
-//
-//}
 
 class User extends ManagedObject<_User> implements _User {
 
@@ -62,7 +21,6 @@ class _User extends Serializable {
   @Column(unique: true, nullable: false )
   String userName;
 
-  @Column()
   String password;
 
   @Column(nullable: false )
@@ -77,15 +35,18 @@ class _User extends Serializable {
   @Relate(#userType)
   UserType userType;
 
+  Chat chatTeach;
+  Chat chatLearn;
+
   @override
   Map<String, dynamic> asMap() => {
-    "id":         id,
-    "Login":      userName,
-    "Contrasena": password,
-    "Correo":     mail,
-    "Nombre":     fullName,
-    "UrlImage":   imageUrl,
-    "TipoUsuario":userType
+    "id":       id,
+    "userName": userName,
+    "password": password,
+    "mail":     mail,
+    "fullName": fullName,
+    "imageUrl": imageUrl,
+    "userType": userType
   };
 
   @override

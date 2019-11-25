@@ -1,46 +1,57 @@
-import 'dart:convert';
-import 'package:tmandtyback/model/user.dart';
 import 'package:tmandtyback/model/idiom.dart';
+import 'package:tmandtyback/model/user.dart';
 import 'package:tmandtyback/tmandtyback.dart';
 
-Chat chatFromJson(String jsonChat) => Chat.fromJson(json.decode(jsonChat));
-
-@Table(name: "chat")
-class Chat{
-  
-  @primaryKey
-  final User idUser;
-  final User idinstructor;
-  final Idiom idIdiom;
-  final String chatType;
-  final int count;
-  final String messageType;
-  final String message;
-
-  //Constructor del chat
-  Chat({this.idUser,this.idinstructor, this.idIdiom, this.chatType, this.count, this.messageType, this.message});
+class Chat extends ManagedObject<_Chat> implements _Chat {
 
   @override
-  String toString() => json.encode(toJson());
+  void willUpdate() {
+  }
 
-  factory Chat.fromJson(var json) => Chat(
-//    idUser:       User.fromJson(json["IdUsuario"]),
-//    idinstructor: User.fromJson(json["IdDocente"]),
-    idIdiom:      Idiom.fromJson(json["IdIdioma"]),
-    chatType:     json["TipoChat"] as String,
-    count:        json["ContadorChat"] as int,
-    messageType:  json["TipoMensaje"] as String,
-    message:      json["Mensaje"] as String
-  );
+  @override
+  void willInsert() {
+  }
+}
 
-  Map<String, dynamic> toJson() => {
-    "IdUsuario":    idUser,
-    "IdDocente":    idinstructor,
-    "IdIdioma":     idIdiom,
-    "TipoChat":     chatType,
-    "ContadorChat": count,
-    "TipoMensaje":  messageType,
-    "Mensaje":      message
+class idChat {
+
+}
+@Table(name: "Chat")
+class _Chat extends Serializable {
+  @Relate(#chatLearn, isRequired: true, onDelete: DeleteRule.cascade)
+  User idUser;
+
+  @Relate(#chatTeach, isRequired: true, onDelete: DeleteRule.cascade)
+  User idinstructor;
+
+  @Relate(#chatIdiom, isRequired: true, onDelete: DeleteRule.cascade)
+  Idiom idIdiom;
+
+  @Column(primaryKey: true, nullable: true)
+  int count;
+
+  @Column(nullable: false)
+  String chatType;
+
+  String messageType;
+
+  String message;
+
+
+  @override
+  Map<String, dynamic> asMap() => {
+    "idUser":       idUser,
+    "idinstructor": idinstructor,
+    "idIdiom":      idIdiom,
+    "chatType":     chatType,
+    "count":        count,
+    "messageType":  messageType,
+    "message":      message
   };
+
+  @override
+  void readFromMap(Map<String, dynamic> object) {
+    // TODO: implement readFromMap
+  }
 
 }
